@@ -38,6 +38,7 @@ namespace AssemblyCSharp
 		/// 群れのコントローラです。仮にボスと名付けます。
 		/// 群れはボスを基準に動きます。
 		/// </summary>
+		// TODO: 複数Bossの定義
 		public GameObject BoidsBoss;
 
 		/// <summary>
@@ -81,6 +82,9 @@ namespace AssemblyCSharp
 			center += this.BoidsBoss.transform.position;
 			center /= 2;
 			this.BoidsCenter.transform.position = center;
+
+			// TODO: 各個体は近くのボスに寄ろうとする
+
 
 			//[特性-1 : 各個体は群れの中央に寄ろうとする]
 			foreach (GameObject child in this.BoidsChildren)
