@@ -11,8 +11,10 @@ using System.Collections;
 
 namespace OscSimpl.Examples
 {
-	public class UsingBundles : MonoBehaviour
+	public class OSCBundles : MonoBehaviour
 	{
+
+        public int localCount =0;
 		public GameObject uiWrapper;
 		public Text sendLabel1;
 		public Text sendLabel2;
@@ -25,10 +27,11 @@ namespace OscSimpl.Examples
 		OscOut oscOut;
 		OscIn oscIn;
 
-		public GameObject fotnBase;
+		public MisakiFotn fotnBase;
+		public Transform cameraTarget;
 
-		public string address1 = "/test";
-		public string address2 = "/test2";
+		public string address1 = "/fotn/start";
+		public string address2 = "/fotn/end";
 		public string address3 = "/fotn/jis";
 		public string address4 = "/fotn/utf";
 		public string address5 = "/fotn/matrix";
@@ -66,7 +69,7 @@ namespace OscSimpl.Examples
 			OscMessage message2 = new OscMessage( address2, Random.value );
 			bundle.Add( message1 );
 			bundle.Add( message2 );
-			oscOut.Send( bundle );
+			//oscOut.Send( bundle );
 
 			// Update UI.
 			sendLabel1.text = message1.ToString();
@@ -79,6 +82,7 @@ namespace OscSimpl.Examples
 		{
 			// Update UI.
 			receiveLabel1.text = message.ToString();
+            //localCount=0;
 		}
 
 
@@ -86,6 +90,8 @@ namespace OscSimpl.Examples
 		{
 			// Update UI
 			receiveLabel2.text = message.ToString();
+
+            localCount++;
 		}
 		void OnMessage3Received( OscMessage message )
 		{
@@ -99,10 +105,21 @@ namespace OscSimpl.Examples
 		}
 		void OnMessage5Received( OscMessage message )
 		{
+            localCount++;
 			// Update UI
 			receiveLabel5.text = message.ToString();
 
+            Vector3 position=new Vector3(localCount * 10.0f*(-1.0f), 0, 0);
+            //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
+            MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
+            fotn.setTypeFace(message.ToString());
+            //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
+            fotn.transform.parent=this.transform;
+
+            position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
+            cameraTarget.position=position;
+            //Instantiate(fotnBase, new Vector3(i * 2.0f, 0, 0), Quaternion.identity);
 
 		}
 	}
