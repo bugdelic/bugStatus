@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FotnManager : MonoBehaviour {
 
@@ -21,13 +22,13 @@ public class FotnManager : MonoBehaviour {
 		charactor[3].setTypeFace("0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,EOL");
 		charactor[4].setTypeFace("1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,1,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,EOL");
 
-		/** 群の制御に文字を追加する
-		BoidsController boidsController = GetComponent<BoidsController> ();
-		boidsController.addChild (charactor [0].transform.gameObject);
-		boidsController.addChild (charactor [1].transform.gameObject);
-		boidsController.addChild (charactor [2].transform.gameObject);
-		boidsController.addChild (charactor [3].transform.gameObject);
-		boidsController.addBoss (charactor [4].transform.gameObject);
-		*/
+		if (SceneManager.GetActiveScene ().name == "boids-misaki") {
+			BoidsController boidsController = GetComponent<BoidsController> ();
+			boidsController.addChild (charactor [0].transform.gameObject);
+			boidsController.addChild (charactor [1].transform.gameObject);
+			boidsController.addChild (charactor [2].transform.gameObject);
+			boidsController.addChild (charactor [3].transform.gameObject);
+			boidsController.addBoss (charactor [4].transform.gameObject);
+		}
 	}
 }
