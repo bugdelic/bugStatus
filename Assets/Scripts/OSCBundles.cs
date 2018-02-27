@@ -24,6 +24,19 @@ namespace OscSimpl.Examples
 		public Text receiveLabel4;
 		public Text receiveLabel5;
 
+
+		public Text receiveLabel11;
+		public Text receiveLabel12;
+		public Text receiveLabel13;
+		public Text receiveLabel14;
+		public Text receiveLabel15;
+
+		public Text receiveLabel21;
+		public Text receiveLabel22;
+		public Text receiveLabel23;
+		public Text receiveLabel24;
+		public Text receiveLabel25;
+
 		OscOut oscOut;
 		OscIn oscIn;
 
@@ -35,6 +48,21 @@ namespace OscSimpl.Examples
 		public string address3 = "/fotn/jis";
 		public string address4 = "/fotn/utf";
 		public string address5 = "/fotn/matrix";
+
+
+		public string address11 = "/coral/start";
+		public string address12 = "/coral/end";
+		public string address13 = "/coral/x";
+		public string address14 = "/coral/y";
+		public string address15 = "/coral/z";
+
+
+		public string address21 = "/maybe/start";
+		public string address22 = "/maybe/end";
+		public string address23 = "/maybe/x";
+		public string address24 = "/maybe/y";
+		public string address25 = "/maybe/charactor";
+
 
 
 		void Start()
