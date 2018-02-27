@@ -68,6 +68,7 @@ namespace OscSimpl.Examples
 		public string address24 = "/maybe/y";
 		public string address25 = "/maybe/charactor";
 
+		public FotnGameManager manager;
 
 
 		void Start()
@@ -134,8 +135,8 @@ namespace OscSimpl.Examples
 		{
 			// Update UI
 			receiveLabel2.text = message.ToString();
-
-            //localCount++;
+			//単語の終わりなので空白を一つ作る。
+            localCount++;
 		}
 		void OnMessage3Received( OscMessage message )
 		{
@@ -157,6 +158,7 @@ namespace OscSimpl.Examples
             //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
             MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
+			fotn.manager=manager;
             fotn.setTypeFace(message.ToString());
             //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
             fotn.transform.parent=this.transform;

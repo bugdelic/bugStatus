@@ -24,6 +24,7 @@ public class FotnGameManager : MonoBehaviour {
     audioSource = gameObject.GetComponent<AudioSource>();
     audioSource.clip = audioClip1;
 
+
 	}
 	
 	// Update is called once per frame
