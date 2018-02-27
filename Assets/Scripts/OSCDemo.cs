@@ -11,15 +11,11 @@ using System.Collections;
 
 namespace OscSimpl.Examples
 {
-	public class OSCBundles : MonoBehaviour
+	public class OSCDemo : MonoBehaviour
 	{
 
         public int localCount =0;
 		public GameObject uiWrapper;
-
-		public Text demoText;
-
-
 		public Text sendLabel1;
 		public Text sendLabel2;
 		public Text receiveLabel1;
@@ -46,7 +42,6 @@ namespace OscSimpl.Examples
 
 		public MisakiFotn fotnBase;
 		public Transform cameraTarget;
-		public TargetCameraController scopeTarget; 
 
 		public string address1 = "/fotn/start";
 		public string address2 = "/fotn/end";
@@ -96,30 +91,19 @@ namespace OscSimpl.Examples
 
 		void Update()
 		{
-
-		}
-		public void createFotn(){
-			
-		//public string address1 = "/fotn/start";
-		//public string address2 = "/fotn/end";
-		//public string address3 = "/fotn/jis";
-		//public string address4 = "/fotn/utf";
-		//public string address5 = "/fotn/matrix";
 			// Create a bundle, add two messages with seperate addresses and values, then send.
 			OscBundle bundle = new OscBundle();
 			OscMessage message1 = new OscMessage( address1, Random.value );
-			OscMessage message2 = new OscMessage( address2, "0xSSS" );
-			OscMessage message3 = new OscMessage( address3, "0xTTT" );
-			OscMessage message4 = new OscMessage( address4, "0xUUU" );
-			OscMessage message5 = new OscMessage( address5, "0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL" );
+			OscMessage message2 = new OscMessage( address2, Random.value );
 			bundle.Add( message1 );
 			bundle.Add( message2 );
-			bundle.Add( message3 );
-			bundle.Add( message4 );
-			bundle.Add( message5 );
-			oscOut.Send( bundle );
-			Debug.Log("HELLO");
-		} 
+			//oscOut.Send( bundle );
+
+			// Update UI.
+			sendLabel1.text = message1.ToString();
+			sendLabel2.text = message2.ToString();
+		}
+
 
 
 		void OnMessage1Received( OscMessage message )
@@ -135,7 +119,7 @@ namespace OscSimpl.Examples
 			// Update UI
 			receiveLabel2.text = message.ToString();
 
-            //localCount++;
+            localCount++;
 		}
 		void OnMessage3Received( OscMessage message )
 		{
@@ -163,8 +147,7 @@ namespace OscSimpl.Examples
 
             position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             cameraTarget.position=position;
-
-			scopeTarget.target=fotn.transform;
+            //Instantiate(fotnBase, new Vector3(i * 2.0f, 0, 0), Quaternion.identity);
 
 		}
 	}

@@ -27,7 +27,6 @@ public class fotnUIController : MonoBehaviour {
 		
 	}
 	public void changeSceneNext(){
-
 			if(controlID==count){
 				controlID=0;
 			}else{

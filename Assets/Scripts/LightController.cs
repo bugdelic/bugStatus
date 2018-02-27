@@ -50,11 +50,9 @@ public class LightController : MonoBehaviour {
 			light2.transform.Rotate(new Vector3(0, 15/360*dir, 0) * Time.deltaTime, Space.World);
 		}
 		
-		Debug.Log ("H:"+sliderH.value);
-
-		Debug.Log ("S:"+sliderS.value);
-
-		Debug.Log ("B:"+sliderB.value);
+		//Debug.Log ("H:"+sliderH.value);
+		//Debug.Log ("S:"+sliderS.value);
+		//Debug.Log ("B:"+sliderB.value);
 		stageRenderer.material.SetColor("_Color", Color.HSVToRGB(sliderH.value, sliderS.value,sliderB.value));
 
 	}
