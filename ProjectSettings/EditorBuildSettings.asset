@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Opening.unity
+    guid: 486b88ad11aaf44d4ae3bece0ca57eb5
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 4a78fefce603847178c689e8bd19e5a5
+  - enabled: 1
+    path: Assets/Scenes/misaki.unity
+    guid: e0ab4b164a7fc4716b8b3ec81ce61fd0
+  - enabled: 1
+    path: Assets/Scenes/boids-misaki.unity
+    guid: 22fc9263b511a469baaa33df82ee9231

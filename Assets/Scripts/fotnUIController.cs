@@ -8,6 +8,7 @@ public class fotnUIController : MonoBehaviour {
 	public int unit=300;
 	public Transform[] menu;
 	public int dt=10;
+	public int count;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,7 +28,7 @@ public class fotnUIController : MonoBehaviour {
 	}
 	public void changeSceneNext(){
 
-			if(controlID==3){
+			if(controlID==count){
 				controlID=0;
 			}else{
 				controlID++;
@@ -35,9 +36,10 @@ public class fotnUIController : MonoBehaviour {
 	}
 	public void changeSceneBack(){
 			if(controlID==0){
-				controlID=3;
+				controlID=count;
 			}else{
 				controlID--;
 			}
 	}
+
 }
