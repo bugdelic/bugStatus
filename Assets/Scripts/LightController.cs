@@ -8,10 +8,10 @@ public class LightController : MonoBehaviour {
 	public GameObject light1;
 	public GameObject light2;
 	public GameObject stage;
-	public bool isLight1=false;
-	public bool isLight2=false;
-	public bool isFever=false;
-	public bool isReverse=false;
+	public bool isLight1;
+	public bool isLight2;
+	public bool isFever;
+	public bool isReverse;
 
 	public Renderer stageRenderer;
 	public Slider sliderH;
