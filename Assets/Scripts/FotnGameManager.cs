@@ -18,6 +18,10 @@ public class FotnGameManager : MonoBehaviour {
     AudioSource audioSource;
     AudioSource BGMSource;
 
+    public bool isReverse;
+    public float rotationSpeed;
+    public Transform stage;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,10 +29,13 @@ public class FotnGameManager : MonoBehaviour {
     audioSource.clip = audioClip1;
 
 
+        StartCoroutine("stageRotator");
+
 	}
 	
 	// Update is called once per frame
     void Update () {
+        
         if ( Input.GetKeyDown(KeyCode.A) == true ) {
             Debug.Log( "A!" );// Torigger
             SoundPlayer(1);
@@ -51,6 +58,23 @@ public class FotnGameManager : MonoBehaviour {
         }else  if ( Input.GetKeyDown(KeyCode.Alpha9) == true ) {
             SoundPlayer(9);
         }
+
+    }
+
+    //「コルーチン」で呼び出すメソッド
+    IEnumerator stageRotator(){
+        int dir=1;
+        if(isReverse){
+            dir=-1;
+        } 
+			stage.Rotate(new Vector3(0, rotationSpeed*dir, 0) * Time.deltaTime, Space.World);
+
+				yield return new WaitForSeconds(0.01f);  //10秒待つ
+        //Debug.Log("ROTATION"+rotationSpeed);
+                //this.stageRotator();
+		//Debug.Log(dots);
+
+        StartCoroutine("stageRotator");
     }
     public void SoundPlayer(int SoundID){
         switch (SoundID)

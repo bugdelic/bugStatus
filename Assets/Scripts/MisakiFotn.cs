@@ -27,6 +27,7 @@ public class MisakiFotn : MonoBehaviour {
 		thread = new Thread(ThreadWork);
 
 		thread.Start();
+        StartCoroutine("misakiAnimation");
 
 }
 	
@@ -54,8 +55,8 @@ public class MisakiFotn : MonoBehaviour {
 		}
 
 	}
-	// Update is called once per frame
-	void Update () {
+    //「コルーチン」で呼び出すメソッド
+    IEnumerator misakiAnimation(){
 		if(initialData!=editedData){
 			setTypeFace(editedData);
 		}
@@ -80,6 +81,12 @@ public class MisakiFotn : MonoBehaviour {
 			default:
 			break;
 		}
+				yield return new WaitForSeconds(0.01f);  //10秒待つ
+
+        StartCoroutine("misakiAnimation");
+    }
+	// Update is called once per frame
+	void Update () {
 	}
 	public void setTypeFaceTest(){
 		this.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
