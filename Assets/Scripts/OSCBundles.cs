@@ -140,7 +140,7 @@ namespace OscSimpl.Examples
 			bundle.Add( message4 );
 			bundle.Add( message5 );
 			oscOut.Send( bundle );
-			Debug.Log("HELLO");
+			//Debug.Log("HELLO");
 		} 
 
 		public void createCorel(){
@@ -179,7 +179,7 @@ namespace OscSimpl.Examples
 				oscOut.Send( bundle );
 
 				//Debug.Log("HELLO");
-				Debug.Log("0.1秒経ちました");
+				//Debug.Log("0.1秒経ちました");
 			}
  
     }
@@ -221,10 +221,10 @@ namespace OscSimpl.Examples
 				bundle.Add( message24 );
 				bundle.Add( message25 );
 				oscOut.Send( bundle );
-				Debug.Log("HELLO");
+				//Debug.Log("HELLO");
 
 				//Debug.Log("HELLO");
-				Debug.Log("0.1秒経ちました");
+				//Debug.Log("0.1秒経ちました");
 			}
  
     }
@@ -299,7 +299,7 @@ namespace OscSimpl.Examples
 		void OnMessage15Received( OscMessage message )
 		{// Update UI
 			
-			Debug.Log("HELLO CorelUnit");
+			//Debug.Log("HELLO CorelUnit");
 			localCount++;
 			receiveLabel15.text = message.ToString();
 

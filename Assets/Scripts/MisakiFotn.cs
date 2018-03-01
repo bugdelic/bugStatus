@@ -18,7 +18,9 @@ public class MisakiFotn : MonoBehaviour {
 
 	Object sync = new Object();
 
-	int count = 0;
+	public int count = 0;
+	public int life=100;
+	public bool isDead=false;
 
 
 	// Use this for initialization
@@ -81,7 +83,17 @@ public class MisakiFotn : MonoBehaviour {
 			default:
 			break;
 		}
-				yield return new WaitForSeconds(0.01f);  //10秒待つ
+		yield return new WaitForSeconds(0.01f);  //10秒待つ
+		count++;
+		if(count>10000000){
+			stage++;
+			count=0;
+		}
+		if(life==0){
+			isDead=true;
+			Destroy(this.gameObject);
+		}
+
 
         StartCoroutine("misakiAnimation");
     }
