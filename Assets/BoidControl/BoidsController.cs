@@ -39,7 +39,7 @@ public class BoidsController : MonoBehaviour
 	private List<GameObject> boidsChildren = new List<GameObject>();
 
 	/// <summary>
-	/// 個体ごとのステータス。
+	/// 個体ごとのステータス。保持用。
 	/// </summary>
 	Dictionary<GameObject, BoidStatus> boidStatusList = new Dictionary<GameObject, BoidStatus>(); 
 
@@ -92,10 +92,10 @@ public class BoidsController : MonoBehaviour
 		return false;
 	}
 
-	// 生存時間を過ぎたものは除去
+	// 生存時間を過ぎたものは除去(ここでFotnManagerから渡されたGameObjectの消込をするかどうかは後々で)
 	private void checkBoidsLifetime() {
 		lock (sync) {
-			foreach (GameObject boid in this.boidsChildren) {
+			foreach(GameObject boid in boidsChildren.ToArray()) {
 				if (this.boidStatusList [boid].lifetime + this.boidStatusList [boid].createTime < Time.time) {
 					boidsChildren.Remove (boid);
 					boidStatusList.Remove (boid);
@@ -103,9 +103,9 @@ public class BoidsController : MonoBehaviour
 				}
 			}
 
-			foreach (GameObject boid in this.boidsBosses) {
+			foreach(GameObject boid in boidsBosses.ToArray()) {
 				if (this.boidStatusList [boid].lifetime + this.boidStatusList [boid].createTime < Time.time) {
-					boidsChildren.Remove (boid);
+					boidsBosses.Remove (boid);
 					boidStatusList.Remove (boid);
 					Destroy (boid);
 				}
@@ -124,13 +124,14 @@ public class BoidsController : MonoBehaviour
 		checkBoidsLifetime ();
 
 		lock (sync) {
+			// この最初のセクションが動きを付けるときのメインイベント部分
+			// 個体とボスの関連性か、重さ(引力)か、一定速度か...悩ましい...orz
 			// ボスが居る時は出来るだけボスに寄ろうとする
 			Dictionary<GameObject, GameObject> childBossMapper = new Dictionary<GameObject, GameObject>(); 
 
+			// 各個体は一番近くのボスに寄ろうとする 
 			if (this.boidsBosses.Count > 0) {
 				foreach (GameObject child in this.boidsChildren) {
-					// 各個体は一番近くのボスに寄ろうとする
-					// ボスが居ない場合は群の中央に寄っていく
 					float dist = 10000000000.0f;
 					GameObject targetBoss = null;
 					foreach (GameObject boss in this.boidsBosses) {
@@ -159,7 +160,7 @@ public class BoidsController : MonoBehaviour
 					child.GetComponent<Rigidbody> ().velocity = direction;
 				}
 
-				// ボスがだれも居ない時、[特性-1 : 各個体は群れの中央に寄ろうとする]
+			// ボスがだれも居ない時、[特性-1 : 各個体は群れの中央に寄ろうとする]
 			} else {
 				Vector3 center = Vector3.zero;
 				foreach (GameObject child in this.boidsChildren) {
@@ -249,6 +250,7 @@ public class BoidsController : MonoBehaviour
 				// 1 のとき、各個体は群れ全体の移動を考慮しません。
 				child.GetComponent<Rigidbody>().velocity = child.GetComponent<Rigidbody>().velocity * this.Turbulence
 					+ (childBossMapper.ContainsKey(child) ? boidsAverageVector[childBossMapper[child]] : averageVelocity) * (1f - this.Turbulence);
+
 				// [Option] 各個体を回転させるとき。
 				// 回転の方法は表現する対象によって切り替える必要があります。
 				// まったく回転させないのが適切な場合もあるでしょう。
