@@ -20,10 +20,35 @@ public class LightController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		
+		//Debug.Log(dots);
+		
+	}
+
+    //「コルーチン」で呼び出すメソッド
+    IEnumerator initLayout(){
+
+		int dir=1;
+
+			if(isReverse){
+			dir=-1;	
+			}
+		if(isFever){
+			light1.transform.Rotate(new Vector3(0, 360*dir, 0) * Time.deltaTime, Space.World);
+			light2.transform.Rotate(new Vector3(0, 15*dir, 0) * Time.deltaTime, Space.World);
+
+		}else{
+
+			light1.transform.Rotate(new Vector3(0, 1*dir, 0) * Time.deltaTime, Space.World);
+			light2.transform.Rotate(new Vector3(0, 15/360*dir, 0) * Time.deltaTime, Space.World);
+		}
+    	yield return null;  
+			//yield break;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        StartCoroutine("initLayout");
 		if(isLight1){
 			light1.SetActive(true);
 		}else{
@@ -34,21 +59,7 @@ public class LightController : MonoBehaviour {
 		}else{
 			light2.SetActive(false);
 		}
-		int dir=1;
 
-			if(isReverse){
-			dir=-1;	
-			}
-
-		if(isFever){
-			light1.transform.Rotate(new Vector3(0, 360*dir, 0) * Time.deltaTime, Space.World);
-			light2.transform.Rotate(new Vector3(0, 15*dir, 0) * Time.deltaTime, Space.World);
-
-		}else{
-
-			light1.transform.Rotate(new Vector3(0, 1*dir, 0) * Time.deltaTime, Space.World);
-			light2.transform.Rotate(new Vector3(0, 15/360*dir, 0) * Time.deltaTime, Space.World);
-		}
 		
 		//Debug.Log ("H:"+sliderH.value);
 		//Debug.Log ("S:"+sliderS.value);

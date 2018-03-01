@@ -16,6 +16,7 @@ namespace OscSimpl.Examples
 
         public int stageScale =900;
         public int localCount =0;
+		public bool isRandom=false;
 		public GameObject uiWrapper;
 		public Transform fotnParent;
 		public Transform corelParent;
@@ -31,6 +32,10 @@ namespace OscSimpl.Examples
 		public Text receiveLabel3;
 		public Text receiveLabel4;
 		public Text receiveLabel5;
+		public Text receiveLabel6;
+		public Text receiveLabel7;
+		public Text receiveLabel8;
+		public Text receiveLabel9;
 
 
 		public Text receiveLabel11;
@@ -64,6 +69,11 @@ namespace OscSimpl.Examples
 		public string address3 = "/fotn/jis";
 		public string address4 = "/fotn/utf";
 		public string address5 = "/fotn/matrix";
+		public string address6 = "/fotn/x";
+		public string address7 = "/fotn/y";
+		public string address8 = "/fotn/mode";
+		public string address9 = "/fotn/character";
+		public string address10 = "/fotn/option";
 
 
 		public string address11 = "/coral/start";
@@ -100,6 +110,14 @@ namespace OscSimpl.Examples
 			oscIn.Map( address3, OnMessage3Received );
 			oscIn.Map( address4, OnMessage4Received );
 			oscIn.Map( address5, OnMessage5Received );
+			oscIn.Map( address6, OnMessage6Received );
+			oscIn.Map( address7, OnMessage7Received );
+			oscIn.Map( address8, OnMessage8Received );
+			oscIn.Map( address9, OnMessage9Received );
+			oscIn.Map( address10, OnMessage10Received );
+
+
+
 			oscIn.Map( address11, OnMessage11Received );
 			oscIn.Map( address12, OnMessage12Received );
 			oscIn.Map( address13, OnMessage13Received );
@@ -120,6 +138,23 @@ namespace OscSimpl.Examples
 		{
 
 		}
+		public void createFotn100(){
+
+        	StartCoroutine("createFotn100Creator");
+		} 
+
+    //「コルーチン」で呼び出すメソッド
+    IEnumerator createFotn100Creator(){
+ 
+
+			isRandom=true;
+			for(int i=0;i<100;i++){
+				createFotn();
+				yield return new WaitForSeconds(0.1f);  //10秒待つ
+			}
+			isRandom=false;
+ 
+    }
 		public void createFotn(){
 			
 		//public string address1 = "/fotn/start";
@@ -127,6 +162,11 @@ namespace OscSimpl.Examples
 		//public string address3 = "/fotn/jis";
 		//public string address4 = "/fotn/utf";
 		//public string address5 = "/fotn/matrix";
+		//public string address6 = "/fotn/x";
+		//public string address7 = "/fotn/y";
+		//public string address8 = "/fotn/mode";
+		//public string address9 = "/fotn/character";
+		//public string address10 = "/fotn/option";
 			// Create a bundle, add two messages with seperate addresses and values, then send.
 			OscBundle bundle = new OscBundle();
 			OscMessage message1 = new OscMessage( address1, Random.value );
@@ -134,6 +174,21 @@ namespace OscSimpl.Examples
 			OscMessage message3 = new OscMessage( address3, "0xTTT" );
 			OscMessage message4 = new OscMessage( address4, "0xUUU" );
 			OscMessage message5 = new OscMessage( address5, "0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL" );
+
+
+			OscMessage message6 = new OscMessage( address6, "0xSSS" );
+			OscMessage message7 = new OscMessage( address7, "0xTTT" );
+			OscMessage message8 = new OscMessage( address8, "0xUUU" );
+			OscMessage message9 = new OscMessage( address9, "0xSSS" );
+			OscMessage message10 = new OscMessage( address10, "0xTTT" );
+
+
+			bundle.Add( message6 );
+			bundle.Add( message7 );
+			bundle.Add( message8 );
+			bundle.Add( message9 );
+			bundle.Add( message10 );
+
 			bundle.Add( message1 );
 			bundle.Add( message2 );
 			bundle.Add( message3 );
@@ -195,7 +250,7 @@ namespace OscSimpl.Examples
 
 
 
-        StartCoroutine("maybeCreator");
+        	StartCoroutine("maybeCreator");
 		} 
 
     //「コルーチン」で呼び出すメソッド
@@ -256,7 +311,11 @@ namespace OscSimpl.Examples
 			receiveLabel5.text = message.ToString();
 
             localCount++;
-            Vector3 position=new Vector3(localCount * 10.0f*(-1.0f), 0, 0);
+            Vector3 position;
+			position=new Vector3(localCount * 10.0f*(-1.0f), 0, 0);
+			if(isRandom){
+					position=new Vector3(Random.value * stageScale -(stageScale)/2, 0, Random.value * stageScale -(stageScale)/2);
+			}
             //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
             MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
@@ -271,6 +330,28 @@ namespace OscSimpl.Examples
 			scopeTarget.target=fotn.transform;
 
 		}
+
+		void OnMessage6Received( OscMessage message )
+		{// Update UI
+		//	receiveLabel6.text = message.ToString();
+		}
+		void OnMessage7Received( OscMessage message )
+		{// Update UI
+		//	receiveLabel7.text = message.ToString();
+		}
+		void OnMessage8Received( OscMessage message )
+		{// Update UI
+		//	receiveLabel8.text = message.ToString();
+		}
+		void OnMessage9Received( OscMessage message )
+		{// Update UI
+		//	receiveLabel9.text = message.ToString();
+		}
+		void OnMessage10Received( OscMessage message )
+		{// Update UI
+		//	receiveLabel10.text = message.ToString();
+		}
+
 
 
 		void OnMessage11Received( OscMessage message )

@@ -14,6 +14,12 @@ public class FotnGameManager : MonoBehaviour {
     public AudioClip audioClip8;
     public AudioClip audioClip9;
     public AudioClip audioClip10;
+
+    public AudioClip audioClip11;
+    public AudioClip audioClip12;
+    public AudioClip audioClip13;
+    public AudioClip audioClip14;
+    public AudioClip audioClip15;
     public AudioClip BGM;
     AudioSource audioSource;
     AudioSource BGMSource;
@@ -105,6 +111,24 @@ public class FotnGameManager : MonoBehaviour {
             break;
             case 9:
                 audioSource.PlayOneShot( audioClip9 );
+            break;
+            case 10:
+               // audioSource.PlayOneShot( audioClip9 );
+            break;
+            case 11:
+                audioSource.PlayOneShot( audioClip11 );
+            break;
+            case 12:
+                audioSource.PlayOneShot( audioClip12 );
+            break;
+            case 13:
+                audioSource.PlayOneShot( audioClip13 );
+            break;
+            case 14:
+                audioSource.PlayOneShot( audioClip14 );
+            break;
+            case 15:
+                audioSource.PlayOneShot( audioClip15 );
             break;
             default:
             break;

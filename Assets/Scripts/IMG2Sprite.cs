@@ -68,13 +68,13 @@ public class IMG2Sprite : MonoBehaviour {
 		int num_w = Mathf.FloorToInt((float)texture.width / w);
 		int num_h = Mathf.FloorToInt((float)texture.height / h);
 		System.Collections.Generic.List<Texture2D> texs = new System.Collections.Generic.List<Texture2D>();
-		Debug.LogFormat(" *****　num_w= {0},num_h={1}" ,num_w,num_h);
+//ß		Debug.LogFormat(" *****　num_w= {0},num_h={1}" ,num_w,num_h);
 		
 		for (int ih = 0; ih < num_h; ih++) {
 		  for (int iw = 0; iw < num_w; iw++) {
 				// ピクセルコピー
 				Texture2D tmp = new Texture2D(w, h, TextureFormat.RGBA32, false);
-				tmp.SetPixels( texture.GetPixels(w *  (num_w-iw-1), h * (num_h-ih-1), w, h) );
+				tmp.SetPixels( texture.GetPixels(w * iw, h * (num_h-ih-1), w, h) );
 				tmp.name = "tmp_" + (num_h-ih-1) + "_" + (num_w-iw-1);// ex) image_0_0.png
 				tmp.Apply();
 				texs.Add (tmp);

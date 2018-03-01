@@ -12,6 +12,7 @@ public class MisakiFotn : MonoBehaviour {
 	public GameObject face1;
 	public GameObject face2;
 	public GameObject face3;
+	public GameObject face5;
 	public FotnGameManager manager;
 
 	Thread thread;
@@ -26,9 +27,9 @@ public class MisakiFotn : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		thread = new Thread(ThreadWork);
+		//thread = new Thread(ThreadWork);
 
-		thread.Start();
+		//thread.Start();
         StartCoroutine("misakiAnimation");
 
 }
@@ -59,6 +60,7 @@ public class MisakiFotn : MonoBehaviour {
 	}
     //「コルーチン」で呼び出すメソッド
     IEnumerator misakiAnimation(){
+        float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
 		if(initialData!=editedData){
 			setTypeFace(editedData);
 		}
@@ -67,6 +69,7 @@ public class MisakiFotn : MonoBehaviour {
 		face1.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 		face2.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 		face3.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+		face5.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 		switch(stage){
 			case 0:
 				face0.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -80,27 +83,35 @@ public class MisakiFotn : MonoBehaviour {
 			case 3:
 				face3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
+			case 5:
+				face5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+			break;
 			default:
 			break;
 		}
-		yield return new WaitForSeconds(0.01f);  //10秒待つ
 		count++;
 		if(count>10000000){
+			manager.SoundPlayer(12);
 			stage++;
 			count=0;
 		}
 		if(life==0){
+			manager.SoundPlayer(14);
 			isDead=true;
 			Destroy(this.gameObject);
 		}
+		yield return new WaitForSeconds(0.01f);  //10秒待つ
 
 
-        StartCoroutine("misakiAnimation");
+        //StartCoroutine("misakiAnimation");
     }
 	// Update is called once per frame
 	void Update () {
 	}
+
+
 	public void setTypeFaceTest(){
+
 		this.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
 	}
 	public void setTypeFace(string param){
@@ -109,12 +120,22 @@ public class MisakiFotn : MonoBehaviour {
 		initialData=param;
 		editedData=param;
 
-		string[] stArrayData = param.Split(',');
+        StartCoroutine("initLayout");
+		
+		manager.SoundPlayer(11);
+		//Debug.Log(dots);
+		
+	}
+
+    //「コルーチン」で呼び出すメソッド
+    IEnumerator initLayout(){
+
+		string[] stArrayData = editedData.Split(',');
 		// データを確認する
 		int i=0;
 		foreach (string stData in stArrayData) {
 			if(i==64){
-				return;
+			yield break;
 			}
 			if(stData=="1"){
 				dots[i].SetActive (true);
@@ -123,8 +144,7 @@ public class MisakiFotn : MonoBehaviour {
 			}
 			i++;
 		}
-		
-		//Debug.Log(dots);
-		
+    	yield return null;  
+			//yield break;
 	}
 }
