@@ -48,7 +48,7 @@ public class LightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        StartCoroutine("initLayout");
+       // StartCoroutine("initLayout");
 		if(isLight1){
 			light1.SetActive(true);
 		}else{

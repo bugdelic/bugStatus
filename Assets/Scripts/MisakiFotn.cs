@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
+//using System.Threading;
 
 public class MisakiFotn : MonoBehaviour {
 	public GameObject[] dots;
@@ -15,7 +15,7 @@ public class MisakiFotn : MonoBehaviour {
 	public GameObject face5;
 	public FotnGameManager manager;
 
-	Thread thread;
+//	Thread thread;
 
 	Object sync = new Object();
 
@@ -30,10 +30,10 @@ public class MisakiFotn : MonoBehaviour {
 		//thread = new Thread(ThreadWork);
 
 		//thread.Start();
-        StartCoroutine("misakiAnimation");
+        //StartCoroutine("misakiAnimation");
 
 }
-	
+	/*
 	void OnApplicationQuit() {
 
 		if( thread != null)
@@ -58,9 +58,34 @@ public class MisakiFotn : MonoBehaviour {
 		}
 
 	}
+	 */
     //「コルーチン」で呼び出すメソッド
     IEnumerator misakiAnimation(){
+
+       // StartCoroutine("misakiAnimation");
+    	yield return null;  
+		//yield return new WaitForSeconds(0.01f);  //10秒待つ
+
+
+        //StartCoroutine("misakiAnimation");
+    }
+	// Update is called once per frame
+	void Update () {
+
         float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
+
+		count++;
+		if(count>10000000){
+			manager.SoundPlayer(12);
+			stage++;
+			count=0;
+		}
+		if(life==0){
+			manager.SoundPlayer(14);
+			isDead=true;
+			Destroy(this.gameObject);
+		}
+
 		if(initialData!=editedData){
 			setTypeFace(editedData);
 		}
@@ -89,26 +114,7 @@ public class MisakiFotn : MonoBehaviour {
 			default:
 			break;
 		}
-		count++;
-		if(count>10000000){
-			manager.SoundPlayer(12);
-			stage++;
-			count=0;
-		}
-		if(life==0){
-			manager.SoundPlayer(14);
-			isDead=true;
-			Destroy(this.gameObject);
-		}
-		yield return new WaitForSeconds(0.01f);  //10秒待つ
-
-
-        //StartCoroutine("misakiAnimation");
-    }
-	// Update is called once per frame
-	void Update () {
 	}
-
 
 	public void setTypeFaceTest(){
 
@@ -130,10 +136,18 @@ public class MisakiFotn : MonoBehaviour {
     //「コルーチン」で呼び出すメソッド
     IEnumerator initLayout(){
 
+        float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
 		string[] stArrayData = editedData.Split(',');
 		// データを確認する
 		int i=0;
 		foreach (string stData in stArrayData) {
+
+            // 10msec以上経過したら次フレームへ
+            if (Time.realtimeSinceStartup >= goNextFrameTime)
+            {
+                yield return null;
+                goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
+            }
 			if(i==64){
 			yield break;
 			}

@@ -29,7 +29,7 @@ public class FotnDot : MonoBehaviour {
 			(this.transform.localPosition.z+(position0.z- this.transform.localPosition.z)/10)
 			);
 		this.gameObject.transform.localPosition=positionNext;
-		if(Mathf.Abs( positionDelta.x)<1 && Mathf.Abs( positionDelta.y)<1 &&Mathf.Abs( positionDelta.z)<1){
+		if(Mathf.Abs( positionDelta.x)<0.1f && Mathf.Abs( positionDelta.y)<0.1f &&Mathf.Abs( positionDelta.z)<0.1f){
 			isApeared=true;
 		}
 		//Vector3 positionNext=new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));

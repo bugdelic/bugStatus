@@ -11,6 +11,7 @@ public class DefineTheater : MonoBehaviour {
 	public IMG2Sprite myImg2Sprite;
 	public bool inited;
 	public int textureSize=32;
+	private Sprite createdSprite;
 	
     void Start () {
 		//getUrlImage();
@@ -26,6 +27,10 @@ public class DefineTheater : MonoBehaviour {
  
  
     void Update () {
+
+        float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
+		int dir=1;
+
 		if(inited){
 
 		if(textureLength>count){
@@ -35,7 +40,6 @@ public class DefineTheater : MonoBehaviour {
 			count=0;
 		}
 		}
-
     }
 	public void  setTexture(){
 
@@ -44,9 +48,8 @@ public class DefineTheater : MonoBehaviour {
         //Texture2D texture = ReadTexture (url, 90, 110);
         //Sprite createdSprite = Sprite.Create (texture, new Rect (time, time, 80+time, 50+time), new Vector2 (0, 1), 1);
 
-
-        Sprite createdSprite = Sprite.Create (textureArray[count], new Rect (0, 0, textureSize, textureSize), new Vector2 (0, 1), 1);
-			this.sr.sprite =createdSprite;
+        createdSprite = Sprite.Create (textureArray[count], new Rect (0, 0, textureSize, textureSize), new Vector2 (0, 1), 1);
+		this.sr.sprite =createdSprite;
 	}
 
 }

@@ -31,7 +31,7 @@ public class fotnUIController : MonoBehaviour {
 		Vector3 currentPos=new Vector3(pos.x+(tx-pos.x)/10,pos.y,pos.z);
 		transform.position=currentPos;
 
-				yield return new WaitForSeconds(0.01f);  //10秒待つ
+		yield return new WaitForSeconds(0.01f);  //10秒待つ
 
         StartCoroutine("UIcontrol");
 
