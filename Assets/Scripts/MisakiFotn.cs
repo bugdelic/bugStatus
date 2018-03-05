@@ -83,7 +83,8 @@ public class MisakiFotn : MonoBehaviour {
 		if(life==0){
 			manager.SoundPlayer(14);
 			isDead=true;
-			Destroy(this.gameObject);
+			// ここで除去を行わないことにします。
+			// Destroy(this.gameObject);
 		}
 
 		if(initialData!=editedData){

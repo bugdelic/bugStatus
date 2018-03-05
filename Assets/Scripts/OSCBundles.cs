@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace OscSimpl.Examples
 {
@@ -94,7 +95,6 @@ namespace OscSimpl.Examples
 		public string address25 = "/maybe/option";
 
 		public FotnGameManager manager;
-
 
 		void Start()
 		{
@@ -314,6 +314,9 @@ namespace OscSimpl.Examples
 		{// Update UI
 			receiveLabel4.text = message.ToString();
 		}
+
+		// 便宜的にボス用のカウンタを用意
+		public int bossCounter = 0;
 		void OnMessage5Received( OscMessage message )
 		{// Update UI
 			receiveLabel5.text = message.ToString();
@@ -334,9 +337,21 @@ namespace OscSimpl.Examples
 
             position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             cameraTarget.position=position;
-
 			scopeTarget.target=fotn.transform;
 
+			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
+			if (SceneManager.GetActiveScene ().name == "boids-misaki") {
+				BoidsController boidsController = GetComponent<BoidsController> ();
+				if (bossCounter % 5 == 0) {
+					boidsController.addBoss (fotn.transform.gameObject);
+					// ボスの動きを固定にするか、完全に放置して動かすか？
+					fotn.GetComponent<Rigidbody> ().isKinematic = true;
+				} else {
+					boidsController.addChild (fotn.transform.gameObject);
+					fotn.GetComponent<Rigidbody> ().isKinematic = false;
+				}
+				bossCounter++;
+			}
 		}
 
 		void OnMessage6Received( OscMessage message )
