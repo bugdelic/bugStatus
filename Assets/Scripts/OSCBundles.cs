@@ -13,6 +13,9 @@ namespace OscSimpl.Examples
 {
 	public class OSCBundles : MonoBehaviour
 	{
+		public int loopMakeNumber=100;
+		public Text loopMakeNumberText;
+
 
         public int stageScale =900;
         public int localCount =0;
@@ -23,6 +26,7 @@ namespace OscSimpl.Examples
 		public Transform maybeParent;
 
 		public Text demoText;
+
 
 
 		public Text sendLabel1;
@@ -80,14 +84,14 @@ namespace OscSimpl.Examples
 		public string address12 = "/coral/end";
 		public string address13 = "/coral/x";
 		public string address14 = "/coral/z";
-		public string address15 = "/coral/charactor";
+		public string address15 = "/coral/option";
 
 
 		public string address21 = "/maybe/start";
 		public string address22 = "/maybe/end";
 		public string address23 = "/maybe/x";
 		public string address24 = "/maybe/y";
-		public string address25 = "/maybe/charactor";
+		public string address25 = "/maybe/option";
 
 		public FotnGameManager manager;
 
@@ -131,6 +135,10 @@ namespace OscSimpl.Examples
 
 			// Show UI.
 			uiWrapper.SetActive( true );
+
+
+			//this.loopMakeNumberText.text=loopMakeNumber.ToString();
+			this.loopMakeNumberText.text="ttttt";
 		}
 
 
@@ -144,11 +152,11 @@ namespace OscSimpl.Examples
 		} 
 
     //「コルーチン」で呼び出すメソッド
-    IEnumerator createFotn100Creator(){
- 
-
+    IEnumerator createFotn100Creator()
+	{
 			isRandom=true;
-			for(int i=0;i<100;i++){
+			int myNumber=  int.Parse(this.loopMakeNumberText.text);
+			for(int i=0;i<myNumber;i++){
 				createFotn();
 				yield return new WaitForSeconds(0.1f);  //10秒待つ
 			}
@@ -441,6 +449,10 @@ namespace OscSimpl.Examples
 
 			//scopeTarget.target=fotn.transform;
 
+		}
+		public void setLoopValue(){
+
+			loopMakeNumber=int.Parse(this.loopMakeNumberText.text);
 		}
 	}
 }
