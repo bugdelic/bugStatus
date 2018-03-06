@@ -5,6 +5,7 @@
 	http://sixthsensor.dk
 */
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -41,6 +42,7 @@ namespace OscSimpl.Examples
 		public Text receiveLabel7;
 		public Text receiveLabel8;
 		public Text receiveLabel9;
+		public Text receiveLabel10;
 
 
 		public Text receiveLabel11;
@@ -65,7 +67,7 @@ namespace OscSimpl.Examples
 		public int maybeCount;
 		public int corelCount;
 
-
+		public string tmpCharacter;
 		public Transform cameraTarget;
 		public TargetCameraController scopeTarget; 
 
@@ -187,7 +189,10 @@ namespace OscSimpl.Examples
 			OscMessage message6 = new OscMessage( address6, "0xSSS" );
 			OscMessage message7 = new OscMessage( address7, "0xTTT" );
 			OscMessage message8 = new OscMessage( address8, "0xUUU" );
-			OscMessage message9 = new OscMessage( address9, "0xSSS" );
+			byte[] bytesToEncode = Encoding.UTF8.GetBytes (demoText.text);
+			string encodedText = Convert.ToBase64String (bytesToEncode);
+			//byte[] resultBytes=System.Text.Encoding.Unicode.GetBytes(demoText.text);
+			OscMessage message9 = new OscMessage( address9, encodedText );
 			OscMessage message10 = new OscMessage( address10, "0xTTT" );
 
 
@@ -203,7 +208,10 @@ namespace OscSimpl.Examples
 			bundle.Add( message4 );
 			bundle.Add( message5 );
 			oscOut.Send( bundle );
-			//Debug.Log("HELLO");
+
+
+  //tring text = System.Text.Encoding.Unicode.GetString(resultBytes);
+			Debug.Log("HELLO "+encodedText);
 		} 
 
 		public void createCorel(){
@@ -353,23 +361,14 @@ namespace OscSimpl.Examples
 				bossCounter++;
 			}else if (SceneManager.GetActiveScene ().name == "misaki") {
 
+					fotn.character=receiveLabel9.text;
 		//byte[] bytesToEncode = System.Enc.UTF8.GetBytes (receiveLabel4.text);
 		//System.GetBytes
-		
-  		byte[] bytesToEncode = System.Text.Encoding.Unicode.GetBytes(receiveLabel4.text.Substring(2));
-		string encodedText = Convert.ToBase64String (bytesToEncode);
-
-
-        Debug.Log("jis = " + receiveLabel3.text);
-        Debug.Log("text = " + receiveLabel4.text.Substring(2));
-        Debug.Log("conv_data = " + encodedText);
-		var name = "\u4E07\u30ab\u30c1\u30e5\u30a6";
-//		byte test2=4E07;
-		string str="万";
-		byte[] resultBytes=System.Text.Encoding.Unicode.GetBytes(str.ToCharArray());
-
-        byte bin_data = new byte{ 0x12 };
-Debug.Log(  Convert.ToBase64String (bin_data) );
+				Debug.Log( receiveLabel9.text);
+				fotn.Text0.text= receiveLabel9.text;
+				fotn.Text1.text= receiveLabel9.text;
+				fotn.Text2.text= receiveLabel9.text;
+				fotn.Text3.text= receiveLabel9.text;
 
 /*
 				BoidsController boidsController = GetComponent<BoidsController> ();
@@ -389,23 +388,30 @@ Debug.Log(  Convert.ToBase64String (bin_data) );
 
 		void OnMessage6Received( OscMessage message )
 		{// Update UI
-		//	receiveLabel6.text = message.ToString();
+			receiveLabel6.text = message.ToString();
 		}
 		void OnMessage7Received( OscMessage message )
 		{// Update UI
-		//	receiveLabel7.text = message.ToString();
+			receiveLabel7.text = message.ToString();
 		}
 		void OnMessage8Received( OscMessage message )
 		{// Update UI
-		//	receiveLabel8.text = message.ToString();
+			receiveLabel8.text = message.ToString();
 		}
 		void OnMessage9Received( OscMessage message )
 		{// Update UI
-		//	receiveLabel9.text = message.ToString();
+
+			tmpCharacter= message.args[0].ToString();
+
+			byte[] decodedBytes = Convert.FromBase64String (tmpCharacter);
+			string decodedText = Encoding.UTF8.GetString (decodedBytes);
+			//Debug.Log( "TTT "+decodedText);
+			receiveLabel9.text =decodedText;
+
 		}
 		void OnMessage10Received( OscMessage message )
 		{// Update UI
-		//	receiveLabel10.text = message.ToString();
+			receiveLabel10.text = message.ToString();
 		}
 
 

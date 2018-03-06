@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using TMPro;
 //using System.Threading;
 
 public class MisakiFotn : MonoBehaviour {
 	public GameObject[] dots;
 	public string initialData;
 	public string editedData;
+	public string character;
 	public int stage=1;
 	public GameObject face0;
 	public GameObject face1;
@@ -14,6 +17,10 @@ public class MisakiFotn : MonoBehaviour {
 	public GameObject face3;
 	public GameObject face5;
 	public FotnGameManager manager;
+	public TextMeshPro Text0;
+	public TextMeshPro Text1;
+	public TextMeshPro Text2;
+	public TextMeshPro Text3;
 
 //	Thread thread;
 

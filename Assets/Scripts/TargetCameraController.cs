@@ -19,6 +19,7 @@ public class TargetCameraController : MonoBehaviour {
 		
 
         //カメラの transform 位置をプレイヤーのものと等しく設定します。ただし、計算されたオフセット距離によるずれも加えます。
-        transform.position = target.position + offset;
+        //transform.position = target.position + offset;
+        transform.position = target.position ;
 	}
 }
