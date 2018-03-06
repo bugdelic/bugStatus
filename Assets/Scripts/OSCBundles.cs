@@ -4,7 +4,7 @@
 	All rights reserved.
 	http://sixthsensor.dk
 */
-
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -177,10 +177,10 @@ namespace OscSimpl.Examples
 		//public string address10 = "/fotn/option";
 			// Create a bundle, add two messages with seperate addresses and values, then send.
 			OscBundle bundle = new OscBundle();
-			OscMessage message1 = new OscMessage( address1, Random.value );
+			OscMessage message1 = new OscMessage( address1, UnityEngine.Random.value );
 			OscMessage message2 = new OscMessage( address2, "0xSSS" );
 			OscMessage message3 = new OscMessage( address3, "0xTTT" );
-			OscMessage message4 = new OscMessage( address4, "0xUUU" );
+			OscMessage message4 = new OscMessage( address4, "0x4E07" );
 			OscMessage message5 = new OscMessage( address5, "0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL" );
 
 
@@ -229,10 +229,10 @@ namespace OscSimpl.Examples
 				Debug.Log("開始");
 				yield return new WaitForSeconds(0.1f);  //10秒待つ
 				OscBundle bundle = new OscBundle();
-				OscMessage message11 = new OscMessage( address11, Random.value );
-				OscMessage message12 = new OscMessage( address12, Random.value );
-				OscMessage message13 = new OscMessage( address13, Random.value*stageScale-stageScale/2 );
-				OscMessage message14 = new OscMessage( address14, Random.value*stageScale-stageScale/2 );
+				OscMessage message11 = new OscMessage( address11,UnityEngine.Random.value );
+				OscMessage message12 = new OscMessage( address12, UnityEngine.Random.value );
+				OscMessage message13 = new OscMessage( address13, UnityEngine.Random.value*stageScale-stageScale/2 );
+				OscMessage message14 = new OscMessage( address14, UnityEngine.Random.value*stageScale-stageScale/2 );
 				OscMessage message15 = new OscMessage( address15, 111 );
 				bundle.Add( message11 );
 				bundle.Add( message12 );
@@ -273,11 +273,11 @@ namespace OscSimpl.Examples
 				yield return new WaitForSeconds(0.1f);  //10秒待つ
 				
 				OscBundle bundle = new OscBundle();
-				OscMessage message21 = new OscMessage( address21, Random.value );
-				OscMessage message22 = new OscMessage( address22, Random.value );
-				OscMessage message23 = new OscMessage( address23, Random.value*stageScale-stageScale/2 );
-				OscMessage message24 = new OscMessage( address24, Random.value*stageScale-stageScale/2 );
-				OscMessage message25 = new OscMessage( address25, Random.value*stageScale+stageScale/2 );
+				OscMessage message21 = new OscMessage( address21, UnityEngine.Random.value );
+				OscMessage message22 = new OscMessage( address22, UnityEngine.Random.value );
+				OscMessage message23 = new OscMessage( address23, UnityEngine.Random.value*stageScale-stageScale/2 );
+				OscMessage message24 = new OscMessage( address24, UnityEngine.Random.value*stageScale-stageScale/2 );
+				OscMessage message25 = new OscMessage( address25, UnityEngine.Random.value*stageScale+stageScale/2 );
 				bundle.Add( message21 );
 				bundle.Add( message22 );
 				bundle.Add( message23 );
@@ -325,7 +325,7 @@ namespace OscSimpl.Examples
             Vector3 position;
 			position=new Vector3(localCount * 10.0f*(-1.0f), 0, 0);
 			if(isRandom){
-					position=new Vector3(Random.value * stageScale -(stageScale)/2, 0, Random.value * stageScale -(stageScale)/2);
+					position=new Vector3(UnityEngine.Random.value * stageScale -(stageScale)/2, 0, UnityEngine.Random.value * stageScale -(stageScale)/2);
 			}
             //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
@@ -351,7 +351,40 @@ namespace OscSimpl.Examples
 					fotn.GetComponent<Rigidbody> ().isKinematic = false;
 				}
 				bossCounter++;
+			}else if (SceneManager.GetActiveScene ().name == "misaki") {
+
+		//byte[] bytesToEncode = System.Enc.UTF8.GetBytes (receiveLabel4.text);
+		//System.GetBytes
+		
+  		byte[] bytesToEncode = System.Text.Encoding.Unicode.GetBytes(receiveLabel4.text.Substring(2));
+		string encodedText = Convert.ToBase64String (bytesToEncode);
+
+
+        Debug.Log("jis = " + receiveLabel3.text);
+        Debug.Log("text = " + receiveLabel4.text.Substring(2));
+        Debug.Log("conv_data = " + encodedText);
+		var name = "\u4E07\u30ab\u30c1\u30e5\u30a6";
+//		byte test2=4E07;
+		string str="万";
+		byte[] resultBytes=System.Text.Encoding.Unicode.GetBytes(str.ToCharArray());
+
+        byte bin_data = new byte{ 0x12 };
+Debug.Log(  Convert.ToBase64String (bin_data) );
+
+/*
+				BoidsController boidsController = GetComponent<BoidsController> ();
+				if (bossCounter % 5 == 0) {
+					boidsController.addBoss (fotn.transform.gameObject);
+					// ボスの動きを固定にするか、完全に放置して動かすか？
+					fotn.GetComponent<Rigidbody> ().isKinematic = true;
+				} else {
+					boidsController.addChild (fotn.transform.gameObject);
+					fotn.GetComponent<Rigidbody> ().isKinematic = false;
+				}
+				bossCounter++;
+*/
 			}
+
 		}
 
 		void OnMessage6Received( OscMessage message )

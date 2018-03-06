@@ -31,12 +31,12 @@ public class BoidsController : MonoBehaviour
 	/// 群れのコントローラです。ボスと名付けます。
 	/// 群れはボスを基準に動きます。複数ボスもOKです。
 	/// </summary>
-	private List<GameObject> boidsBosses = new List<GameObject> ();
+	public List<GameObject> boidsBosses = new List<GameObject> ();
 
 	/// <summary>
 	/// 群れとして扱う各個体を配列として扱います。
 	/// </summary>
-	private List<GameObject> boidsChildren = new List<GameObject>();
+	public List<GameObject> boidsChildren = new List<GameObject>();
 
 	/// <summary>
 	/// 個体ごとのステータス。保持用。
