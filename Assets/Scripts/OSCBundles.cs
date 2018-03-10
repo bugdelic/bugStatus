@@ -96,6 +96,8 @@ namespace OscSimpl.Examples
 		public string address24 = "/maybe/y";
 		public string address25 = "/maybe/option";
 
+
+		public int bossMasterCount = 10;
 		public FotnGameManager manager;
 
 		void Start()
@@ -348,9 +350,9 @@ namespace OscSimpl.Examples
 			scopeTarget.target=fotn.transform;
 
 			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
-			if (SceneManager.GetActiveScene ().name == "boids-misaki") {
+			if (SceneManager.GetActiveScene ().name == "misaki") {
 				BoidsController boidsController = GetComponent<BoidsController> ();
-				if (bossCounter % 5 == 0) {
+				if (bossCounter % bossMasterCount == 0) {
 					boidsController.addBoss (fotn.transform.gameObject);
 					// ボスの動きを固定にするか、完全に放置して動かすか？
 					fotn.GetComponent<Rigidbody> ().isKinematic = true;
