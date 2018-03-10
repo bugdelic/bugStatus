@@ -345,9 +345,10 @@ namespace OscSimpl.Examples
             //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
             fotn.transform.parent=fotnParent;
 
-            position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
-            cameraTarget.position=position;
-			scopeTarget.target=fotn.transform;
+			// カメラはデフォターゲットで。コメントアウトしときます。
+            // position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
+			// cameraTarget.position=position;
+			// scopeTarget.target=fotn.transform;
 
 			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
 			if (SceneManager.GetActiveScene ().name == "misaki") {
