@@ -26,6 +26,12 @@ public class BoidsController : MonoBehaviour
 	public float LifetimeMax = 120.0f;
 	public float LifetimeMin = 30.0f;
 
+	// 子の速度のレンジ
+	public float MaxChildVelocity = 40.0f;
+	public float MinChildVelocity = 20.0f;
+
+	// 個性を発動するかどうか？フラグ
+	public bool isPersonality = true;
 
 	/// <summary>
 	/// 群れのコントローラです。ボスと名付けます。
@@ -57,6 +63,7 @@ public class BoidsController : MonoBehaviour
 		lock (sync) {
 			BoidStatus boidStatus = new BoidStatus ();
 			boidStatus.lifetime = UnityEngine.Random.Range (LifetimeMin, LifetimeMax);
+			boidStatus.velocity = UnityEngine.Random.Range (MinChildVelocity, MaxChildVelocity);
 			this.boidsChildren.Add (child);
 			this.boidStatusList.Add(child, boidStatus);
 		}
@@ -155,8 +162,11 @@ public class BoidsController : MonoBehaviour
 					// ここでは取りあえず毎回ランダムにします。
 					// 各個体の個性の差が大きいほど、群れ全体がバラつきます。
 					// 各個体が固有の速度の差が大きいほど縦長の群れを形成しやすくなります。
-					direction *= UnityEngine.Random.Range (20f, 30f);
-
+					if (isPersonality) {
+						direction *= this.boidStatusList[child].velocity;
+					} else {
+						direction *= UnityEngine.Random.Range (20f, 30f);
+					}
 					child.GetComponent<Rigidbody> ().velocity = direction;
 				}
 

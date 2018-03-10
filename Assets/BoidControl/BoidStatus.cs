@@ -12,8 +12,8 @@ public class BoidStatus
 	// 自身が生成された時間
 	public float createTime;
 
-	// 加速度(個々に加速度を保持するか...)
-	public float acceleration;
+	// 速度
+	public float velocity;
 
 	public BoidStatus () {
 		createTime = Time.time;
