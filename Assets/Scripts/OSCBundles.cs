@@ -11,6 +11,13 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Globalization;
+
+
 namespace OscSimpl.Examples
 {
 	public class OSCBundles : MonoBehaviour
@@ -197,7 +204,6 @@ namespace OscSimpl.Examples
 			OscMessage message9 = new OscMessage( address9, encodedText );
 			OscMessage message10 = new OscMessage( address10, "0xTTT" );
 
-
 			bundle.Add( message6 );
 			bundle.Add( message7 );
 			bundle.Add( message8 );
@@ -258,16 +264,6 @@ namespace OscSimpl.Examples
     }
 
 		public void createMaybe(){
-			
-			//public string address21 = "/maybe/start";
-			//public string address22 = "/maybe/end";
-			//public string address23 = "/maybe/x";
-			//public string address24 = "/maybe/z";
-			//public string address25 = "/maybe/charactor";
-			// Create a bundle, add two messages with seperate addresses and values, then send.
-
-
-
         	StartCoroutine("maybeCreator");
 		} 
 
@@ -342,13 +338,19 @@ namespace OscSimpl.Examples
             MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
 			fotn.manager=manager;
             fotn.setTypeFace(message.ToString());
-            //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
-            fotn.transform.parent=fotnParent;
+            fotn.transform.parent = fotnParent;
 
-			// カメラはデフォターゲットで。コメントアウトしときます。
-            // position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
-			// cameraTarget.position=position;
-			// scopeTarget.target=fotn.transform;
+			// 文字コード問題の解決(unicode to String)
+			String[] parseMoji = receiveLabel4.text.Split (' ');
+			if (parseMoji.Length == 2) {
+				parseMoji [1] = parseMoji [1].Replace ("\"", "").Replace("0x", "");
+			}
+			string unicodeMoji = ((char)int.Parse(parseMoji [1], NumberStyles.HexNumber)).ToString();
+			Debug.Log( receiveLabel9.text);
+			fotn.Text0.text= unicodeMoji;
+			fotn.Text1.text= unicodeMoji;
+			fotn.Text2.text= unicodeMoji;
+			fotn.Text3.text= unicodeMoji;
 
 			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
 			if (SceneManager.GetActiveScene ().name == "misaki") {
@@ -362,31 +364,7 @@ namespace OscSimpl.Examples
 					fotn.GetComponent<Rigidbody> ().isKinematic = false;
 				}
 				bossCounter++;
-			}else if (SceneManager.GetActiveScene ().name == "misaki") {
-
-					fotn.character=receiveLabel9.text;
-		//byte[] bytesToEncode = System.Enc.UTF8.GetBytes (receiveLabel4.text);
-		//System.GetBytes
-				Debug.Log( receiveLabel9.text);
-				fotn.Text0.text= receiveLabel9.text;
-				fotn.Text1.text= receiveLabel9.text;
-				fotn.Text2.text= receiveLabel9.text;
-				fotn.Text3.text= receiveLabel9.text;
-
-/*
-				BoidsController boidsController = GetComponent<BoidsController> ();
-				if (bossCounter % 5 == 0) {
-					boidsController.addBoss (fotn.transform.gameObject);
-					// ボスの動きを固定にするか、完全に放置して動かすか？
-					fotn.GetComponent<Rigidbody> ().isKinematic = true;
-				} else {
-					boidsController.addChild (fotn.transform.gameObject);
-					fotn.GetComponent<Rigidbody> ().isKinematic = false;
-				}
-				bossCounter++;
-*/
 			}
-
 		}
 
 		void OnMessage6Received( OscMessage message )

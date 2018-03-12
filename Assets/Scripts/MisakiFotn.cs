@@ -22,50 +22,16 @@ public class MisakiFotn : MonoBehaviour {
 	public TextMeshPro Text2;
 	public TextMeshPro Text3;
 
-//	Thread thread;
-
-	Object sync = new Object();
-
 	public int count = 0;
 	public int life=100;
 	public bool isDead=false;
 
+	public string stage5Url ;
 
 	// Use this for initialization
 	void Start () {
-		
-		//thread = new Thread(ThreadWork);
-
-		//thread.Start();
-        //StartCoroutine("misakiAnimation");
-
-}
-	/*
-	void OnApplicationQuit() {
-
-		if( thread != null)
-
-			thread.Abort(); 
-
-  	}
-
-	
-	void ThreadWork(){
-
-		while(true){
-
-			Thread.Sleep(0);
-
-			lock(sync){
-
-				count += 1;
-
-			}
-
-		}
-
 	}
-	 */
+
     //「コルーチン」で呼び出すメソッド
     IEnumerator misakiAnimation(){
 
@@ -143,30 +109,7 @@ public class MisakiFotn : MonoBehaviour {
 
     //「コルーチン」で呼び出すメソッド
     IEnumerator initLayout(){
-
-        float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
-		string[] stArrayData = editedData.Split(',');
-		// データを確認する
-		int i=0;
-		foreach (string stData in stArrayData) {
-
-            // 10msec以上経過したら次フレームへ
-            if (Time.realtimeSinceStartup >= goNextFrameTime)
-            {
-                yield return null;
-                goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
-            }
-			if(i==64){
-			yield break;
-			}
-			if(stData=="1"){
-				dots[i].SetActive (true);
-			}else{
-				dots[i].SetActive(false);
-			}
-			i++;
-		}
-    	yield return null;  
+		yield return null;  
 			//yield break;
 	}
 }
