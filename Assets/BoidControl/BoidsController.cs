@@ -23,12 +23,12 @@ public class BoidsController : MonoBehaviour
 	/// 各個体の生存期間の上限/下限を設定します。
 	/// 個体生成時にRandom(min, max)で当てちゃいます。
 	/// </summary>
-	public float LifetimeMax = 120.0f;
-	public float LifetimeMin = 30.0f;
+	public float LifetimeMax = 6000.0f;
+	public float LifetimeMin = 300.0f;
 
 	// 子の速度のレンジ
-	public float MaxChildVelocity = 40.0f;
-	public float MinChildVelocity = 20.0f;
+	public float MaxChildVelocity = 50.0f;
+	public float MinChildVelocity = 10.0f;
 
 	// 個性を発動するかどうか？フラグ
 	public bool isPersonality = true;
@@ -183,7 +183,11 @@ public class BoidsController : MonoBehaviour
 					Vector3 direction = (child.GetComponent<Rigidbody> ().velocity.normalized * this.Turbulence
 						+ dirToCenter * (1 - this.Turbulence)).normalized;
 
-					direction *= UnityEngine.Random.Range (20f, 30f);
+					if (isPersonality) {
+						direction *= this.boidStatusList[child].velocity;
+					} else {
+						direction *= UnityEngine.Random.Range (20f, 30f);
+					}
 					child.GetComponent<Rigidbody> ().velocity = direction;
 				}
 			}

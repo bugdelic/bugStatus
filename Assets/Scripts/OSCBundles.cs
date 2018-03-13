@@ -302,7 +302,8 @@ namespace OscSimpl.Examples
 		void OnMessage1Received( OscMessage message )
 		{// Update UI.
 			receiveLabel1.text = message.ToString();
-            //localCount=0;
+			Debug.Log (receiveLabel1.text);
+			//localCount=0;
 		}
 
 
@@ -346,7 +347,7 @@ namespace OscSimpl.Examples
 				parseMoji [1] = parseMoji [1].Replace ("\"", "").Replace("0x", "");
 			}
 			string unicodeMoji = ((char)int.Parse(parseMoji [1], NumberStyles.HexNumber)).ToString();
-			Debug.Log( receiveLabel9.text);
+			Debug.Log( receiveLabel4.text + ": " + unicodeMoji);
 			fotn.Text0.text= unicodeMoji;
 			fotn.Text1.text= unicodeMoji;
 			fotn.Text2.text= unicodeMoji;
