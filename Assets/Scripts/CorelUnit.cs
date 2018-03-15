@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OscSimpl.Examples;
 
 public class CorelUnit : MonoBehaviour {
-
+	public OSCBundles osc;
 	public FotnGameManager manager;
 	public Vector3 scannedPosition;
 	public Transform particle;
@@ -34,5 +35,15 @@ public class CorelUnit : MonoBehaviour {
 
         	effect.localPosition = position;
 			//effect.localPositon=position;
+
+//		Debug.Log(other.gameObject.name);
+        if(other.gameObject.tag == "Fotn")
+        {
+			
+	//	Debug.Log("HELLO");
+        Boid b = other.transform.GetComponent<Boid>();
+		
+			osc.fotnTalker(b.fotnCode);
+        }
     }
 }

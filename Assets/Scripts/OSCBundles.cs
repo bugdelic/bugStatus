@@ -222,7 +222,12 @@ namespace OscSimpl.Examples
   //tring text = System.Text.Encoding.Unicode.GetString(resultBytes);
 			Debug.Log("HELLO "+encodedText);
 		} 
+		public void fotnTalker(string TTT){
 
+		Debug.Log("fotnTalker");
+			OscMessage talker = new OscMessage( "/talk", TTT );
+			oscOut.Send( talker );
+		}
 		public void createCorel(){
 			
 		//public string address11 = "/coral/start";
@@ -243,7 +248,7 @@ namespace OscSimpl.Examples
 				Destroy (obj);
 			}
 			for(int i=0;i<corelCount;i++){
-				Debug.Log("開始");
+//				Debug.Log("開始");
 				yield return new WaitForSeconds(0.1f);  //10秒待つ
 				OscBundle bundle = new OscBundle();
 				OscMessage message11 = new OscMessage( address11,UnityEngine.Random.value );
@@ -325,6 +330,7 @@ namespace OscSimpl.Examples
 		public int bossCounter = 0;
 		void OnMessage5Received( OscMessage message )
 		{// Update UI
+			manager.SoundPlayer(11);
 			receiveLabel5.text = message.ToString();
 
             localCount++;
@@ -358,7 +364,7 @@ namespace OscSimpl.Examples
 			fotn.Text1.text= unicodeMoji;
 			fotn.Text2.text= unicodeMoji;
 			fotn.Text3.text= unicodeMoji;
-			
+
 				BoidsController boidsController = GetComponent<BoidsController> ();
 				if (bossCounter % bossMasterCount == 0) {
 					boidsController.addBoss (fotn.transform.gameObject);
@@ -445,6 +451,8 @@ namespace OscSimpl.Examples
         	corel.transform.localRotation = Quaternion.identity;
         	corel.transform.localPosition =position;
 			corel.manager=manager;
+			corel.osc=this;
+
             //position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             //cameraTarget.position=position;
 

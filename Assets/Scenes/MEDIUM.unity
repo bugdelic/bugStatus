@@ -12698,11 +12698,6 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 23968370560138502, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6eddd2d9b182654ab97ac6e00d55d1c, type: 2}
   m_IsPrefabParent: 0
@@ -14413,7 +14408,7 @@ BoxCollider:
   m_GameObject: {fileID: 2005631410}
   m_Material: {fileID: 13400000, guid: 038bc6e95930e4cf0be90aa9f1508126, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 0.09, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
