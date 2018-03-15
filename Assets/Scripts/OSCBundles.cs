@@ -22,9 +22,11 @@ namespace OscSimpl.Examples
 {
 	public class OSCBundles : MonoBehaviour
 	{
+		public Flock flock;
 		public int loopMakeNumber=100;
 		public Text loopMakeNumberText;
 
+		public int fotnCount;
 
         public int stageScale =900;
         public int localCount =0;
@@ -130,7 +132,6 @@ namespace OscSimpl.Examples
 			oscIn.Map( address8, OnMessage8Received );
 			oscIn.Map( address9, OnMessage9Received );
 			oscIn.Map( address10, OnMessage10Received );
-
 
 
 			oscIn.Map( address11, OnMessage11Received );
@@ -295,9 +296,7 @@ namespace OscSimpl.Examples
 				//Debug.Log("HELLO");
 				//Debug.Log("0.1秒経ちました");
 			}
- 
     }
-
 
 		void OnMessage1Received( OscMessage message )
 		{// Update UI.
@@ -338,8 +337,9 @@ namespace OscSimpl.Examples
 
             MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
 			fotn.manager=manager;
-            fotn.setTypeFace(message.ToString());
-            fotn.transform.parent = fotnParent;
+            //fotn.setTypeFace(message.ToString());
+            //fotn.transform.parent = fotnParent;
+            fotn.transform.parent = flock.boids[0].transform;
 
 			// 文字コード問題の解決(unicode to String)
 			String[] parseMoji = receiveLabel4.text.Split (' ');
@@ -397,7 +397,6 @@ namespace OscSimpl.Examples
 		}
 
 
-
 		void OnMessage11Received( OscMessage message )
 		{// Update UI.
 			receiveLabel11.text = message.ToString();
@@ -429,7 +428,7 @@ namespace OscSimpl.Examples
 			receiveLabel15.text = message.ToString();
 
             Vector3 position=new Vector3( float.Parse(receiveLabel13.text),0, float.Parse(receiveLabel14.text));
-            //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
+            //Vector3 myRotation=new Vector3(i * 2.0f, 0, 0);
 
             CorelUnit corel = (CorelUnit)Instantiate(corelBase, position, transform.rotation);
 			//fotn.manager=manager;
@@ -437,6 +436,9 @@ namespace OscSimpl.Examples
             //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
             corel.transform.parent=corelParent;
 
+        	corel.transform.localRotation = Quaternion.identity;
+        	corel.transform.localPosition =position;
+			corel.manager=manager;
             //position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             //cameraTarget.position=position;
 
@@ -475,11 +477,14 @@ namespace OscSimpl.Examples
             //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
             MaybeUnit maybe = (MaybeUnit)Instantiate(maybeBase, position, transform.rotation);
+			maybe.manager=manager;
 			//fotn.manager=manager;
             //fotn.setTypeFace(message.ToString());
             //fotn.setTypeFace("0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,EOL");
             maybe.transform.parent=maybeParent;
-
+        	maybe.transform.localRotation = Quaternion.identity;
+        	maybe.transform.localPosition =position;
+			manager.MaybeStart();
             //position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             //cameraTarget.position=position;
 

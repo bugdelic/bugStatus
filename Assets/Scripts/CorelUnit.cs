@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CorelUnit : MonoBehaviour {
 
+	public FotnGameManager manager;
 	public Vector3 scannedPosition;
+	public Transform particle;
 	// Use this for initialization
 	void Start () {
 	
@@ -21,4 +23,16 @@ public class CorelUnit : MonoBehaviour {
 	void Update () {
 		
 	}
+    void OnTriggerEnter(Collider other) {
+        //Destroy(this.gameObject);
+		//Debug.Log("HELLO");
+		manager.CorelHit();
+
+            Vector3 position=new Vector3(0,0,0);
+            Transform effect = Instantiate(particle, position, this.transform.rotation);
+			effect.parent=this.transform;
+
+        	effect.localPosition = position;
+			//effect.localPositon=position;
+    }
 }

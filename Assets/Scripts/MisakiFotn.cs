@@ -21,31 +21,61 @@ public class MisakiFotn : MonoBehaviour {
 	public TextMeshPro Text1;
 	public TextMeshPro Text2;
 	public TextMeshPro Text3;
+	
+//	Thread thread;
+
+	Object sync = new Object();
 
 	public int count = 0;
 	public int life=100;
 	public bool isDead=false;
 
-	public string stage5Url ;
-	private Vector3 localScaleStage0, localScaleStage1, localScaleStage2, localScaleStage3, localScaleStage4, localScaleStage5;
 
 	// Use this for initialization
 	void Start () {
 		
-		// 大きさをランダムで保存しておく
-		float v = UnityEngine.Random.Range (1.0f, 1.5f); 
+		//thread = new Thread(ThreadWork);
 
-		// サイズ(とりあえず)
-		localScaleStage0 = localScaleStage1 = localScaleStage2 =
-			localScaleStage3 = localScaleStage4 = localScaleStage5 =
-				new Vector3(v, v, v);
+		//thread.Start();
+        //StartCoroutine("misakiAnimation");
+
+}
+	/*
+	void OnApplicationQuit() {
+
+		if( thread != null)
+
+			thread.Abort(); 
+
+  	}
+
+	
+	void ThreadWork(){
+
+		while(true){
+
+			Thread.Sleep(0);
+
+			lock(sync){
+
+				count += 1;
+
+			}
+
+		}
+
 	}
-
+	 */
     //「コルーチン」で呼び出すメソッド
     IEnumerator misakiAnimation(){
-    	yield return null;  
-    }
 
+       // StartCoroutine("misakiAnimation");
+    	yield return null;  
+		//yield return new WaitForSeconds(0.01f);  //10秒待つ
+
+
+        //StartCoroutine("misakiAnimation");
+    }
 	// Update is called once per frame
 	void Update () {
 
@@ -75,19 +105,19 @@ public class MisakiFotn : MonoBehaviour {
 		face5.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 		switch(stage){
 			case 0:
-			face0.transform.localScale = localScaleStage0;
+				face0.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
 			case 1:
-			face1.transform.localScale = localScaleStage1;
+				face1.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
 			case 2:
-			face2.transform.localScale = localScaleStage2;
+				face2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
 			case 3:
-			face3.transform.localScale = localScaleStage3;
+				face3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
 			case 5:
-			face5.transform.localScale = localScaleStage5;
+				face5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 			break;
 			default:
 			break;
@@ -104,7 +134,7 @@ public class MisakiFotn : MonoBehaviour {
 		initialData=param;
 		editedData=param;
 
-        StartCoroutine("initLayout");
+    //    StartCoroutine("initLayout");
 		
 		manager.SoundPlayer(11);
 		//Debug.Log(dots);
@@ -113,7 +143,30 @@ public class MisakiFotn : MonoBehaviour {
 
     //「コルーチン」で呼び出すメソッド
     IEnumerator initLayout(){
-		yield return null;  
+
+        float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
+		string[] stArrayData = editedData.Split(',');
+		// データを確認する
+		int i=0;
+		foreach (string stData in stArrayData) {
+
+            // 10msec以上経過したら次フレームへ
+            if (Time.realtimeSinceStartup >= goNextFrameTime)
+            {
+                yield return null;
+                goNextFrameTime = Time.realtimeSinceStartup + 0.01f;
+            }
+			if(i==64){
+			yield break;
+			}
+			if(stData=="1"){
+				dots[i].SetActive (true);
+			}else{
+				dots[i].SetActive(false);
+			}
+			i++;
+		}
+    	yield return null;  
 			//yield break;
 	}
 }

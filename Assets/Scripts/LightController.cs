@@ -12,6 +12,7 @@ public class LightController : MonoBehaviour {
 	public bool isLight2;
 	public bool isFever;
 	public bool isReverse;
+	public int feverMode;
 
 	public Renderer stageRenderer;
 	public Slider sliderH;
@@ -61,6 +62,13 @@ public class LightController : MonoBehaviour {
 		}
 
 		
+		if(isFever){
+			
+		}else{
+			sliderB.value=0.0f;
+			sliderS.value=0.0f;
+			sliderH.value=0.0f;
+		}
 		//Debug.Log ("H:"+sliderH.value);
 		//Debug.Log ("S:"+sliderS.value);
 		//Debug.Log ("B:"+sliderB.value);
@@ -92,10 +100,50 @@ public class LightController : MonoBehaviour {
 	}
 	public void LightFever(){
 		
-		if(isFever){
-			isFever=false;
-		}else{
-			isFever=true;
+		int x=Random.Range (0, 5);
+		feverMode=x;
+
+		switch (feverMode)
+		{
+			case 0:
+			sliderB.value=1.0f;
+			sliderS.value=0.0f;
+			sliderH.value=0.0f;
+			break;
+			case 1:
+			sliderB.value=1.0f;
+			sliderS.value=1.0f;
+			sliderH.value=0.0f;
+			
+			break;
+			case 2:
+			sliderB.value=1.0f;
+			sliderS.value=1.0f;
+			sliderH.value=0.25f;
+			
+			break;
+			case 3:
+			sliderB.value=1.0f;
+			sliderS.value=1.0f;
+			sliderH.value=0.5f;
+			
+			break;
+			case 4:
+			sliderB.value=1.0f;
+			sliderS.value=1.0f;
+			sliderH.value=0.75f;
+			
+			break;
+			case 5:
+			sliderB.value=1.0f;
+			sliderS.value=1.0f;
+			
+			break;
+			default:
+			break;
 		}
+
+			isFever=true;
+
 	}
 }

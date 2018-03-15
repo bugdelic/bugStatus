@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FotnGameManager : MonoBehaviour {
 
+    public LightController light;
     public AudioClip audioClip1;
     public AudioClip audioClip2;
     public AudioClip audioClip3;
@@ -81,6 +82,22 @@ public class FotnGameManager : MonoBehaviour {
 		//Debug.Log(dots);
 
         StartCoroutine("stageRotator");
+    }
+    public void CorelHit(){
+        this.SoundPlayer(7);
+    }
+    public void MaybeHit(){
+        this.SoundPlayer(5);
+
+    }
+
+
+    public void MaybeStart(){
+        this.SoundPlayer(2);
+        light.LightFever();
+    }
+    public void feverEnd(){
+        light.isFever=false;
     }
     public void SoundPlayer(int SoundID){
         switch (SoundID)

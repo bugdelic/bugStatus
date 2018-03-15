@@ -5,6 +5,8 @@ using UnityEngine;
 public class Boid : MonoBehaviour
 {
     public LayerMask boidMask;
+    public bool isMaybe;
+    public Transform targetMaybe;
 
     Flock parentFlock;
     public Flock ParentFlock { get { return parentFlock; } set { parentFlock = value; } }
@@ -35,10 +37,10 @@ public class Boid : MonoBehaviour
         UpdateNeighbours();
 
         //Debug for seeing connected neighbours
-        // for (int i = 0; i < neighbours.Length; i++)
-        // {
-        //     Debug.DrawLine(transform.position,neighbours[i].transform.position);
-        // }
+         for (int i = 0; i < neighbourList.Count; i++)
+         {
+             Debug.DrawLine(transform.position,neighbourList[i].transform.position);
+         }
        
         //Run each behaviour to get the steering contribution (they return Vector3.Zero if toggled off)
         cohesionSteeringForce = parentFlock.cohesionWeight * CalculateCohesion(neighbourList);
@@ -58,10 +60,22 @@ public class Boid : MonoBehaviour
     
     //Actually move (when told by the flock)
     public void ExecuteMovement () { 
+        if(isMaybe && parentFlock.isMaybe){
+            Debug.Log("HHHHHHEEEEEELLLLLLLOOOOOO");
+            if(targetMaybe){
+                //this.transform.position-=(this.transform.position-targetMaybe.position)/10000;
+                //this.transform.position=targetMaybe.position;
+                //transform.Translate(velocity * Time.deltaTime, Space.World);
+
+                transform.Translate ((targetMaybe.position-this.transform.position) * 0.01f);
+            }
+        }else{
+
         velocity += finalSteeringForce * Time.deltaTime;
         velocity = velocity.normalized * Mathf.Clamp(velocity.magnitude, parentFlock.minSpeed, parentFlock.maxSpeed);
         transform.Translate(velocity * Time.deltaTime, Space.World);
         transform.rotation = Quaternion.LookRotation(velocity, Vector3.up);
+        }
     }   
 
 #region Behaviours
@@ -160,7 +174,7 @@ public class Boid : MonoBehaviour
     }
 
     void OnDrawGizmos() {
-
+/*
         //Draw the various steering forces
         if (parentFlock.debugOn) {  
             Debug.DrawRay(transform.position,velocity.normalized * 0.5f);
@@ -171,14 +185,21 @@ public class Boid : MonoBehaviour
             if (boundarySteeringForce != Vector3.zero) Debug.DrawLine(transform.position,transform.position + boundarySteeringForce / parentFlock.boundaryWeight + velocity, Color.magenta * 0.5f);
             if (randomSteeringForce != Vector3.zero) Debug.DrawLine(transform.position,transform.position + randomSteeringForce, Color.yellow * 0.9f);
         }
-
+ */
         //Draw the point to return towards when out of bounds
-        // Gizmos.color = Color.blue * 0.1f;
-        // Gizmos.DrawSphere(returnToBoundsPoint,0.1f);
+         Gizmos.color = Color.blue * 0.1f;
+         Gizmos.DrawSphere(returnToBoundsPoint,0.1f);
         
         //Draw the radius boid will detect neighbours
-        //Gizmos.color = Color.white * 0.1f;
-        //Gizmos.DrawSphere(transform.position,parentFlock.neighbourRadius);
+       // Gizmos.color = Color.white * 0.1f;
+       // Gizmos.DrawSphere(transform.position,parentFlock.neighbourRadius);
+
+        //Debug for seeing connected neighbours
+         for (int i = 0; i < neighbourList.Count; i++)
+         {
+             Gizmos.DrawLine(transform.position,neighbourList[i].transform.position);
+         }
+       
     }
 
    

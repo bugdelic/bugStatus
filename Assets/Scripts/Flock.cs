@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flock : MonoBehaviour {
+    public LightController light;
+    public bool isMaybe;
+    public Transform parent;
     public bool debugOn;
     //toggles and weightings to determine which forces are more prevalent. TODO: make weighting dynamic based on different rules
     public bool useCohesion;
@@ -36,7 +39,7 @@ public class Flock : MonoBehaviour {
     public float slowTimePercent;
 
     [SerializeField]
-    List<Boid> boids;
+    public List<Boid> boids;
 
     public FlockController flockController;
 
@@ -53,16 +56,20 @@ public class Flock : MonoBehaviour {
             b.Velocity = Random.insideUnitSphere.normalized;
             b.ParentFlock = this;
             boids.Add(b);
+            b.transform.parent=parent;
+            
         }
     }
 
     void Update() {
+        isMaybe=light.isFever;
         Vector3 flockCentroid = Vector3.zero;
         foreach (Boid b in boids) {
             flockCentroid += b.transform.position;
             b.UpdateBehaviour();
 			b.ExecuteMovement();
 		}
+        
         flockCentroid = flockCentroid / boids.Count;
         transform.position = flockCentroid;
 

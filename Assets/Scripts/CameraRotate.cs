@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour {
 
+	public FotnGameManager manager;
 	public Transform camTarget;
 	float camDistance;
 	
@@ -15,8 +16,15 @@ public class CameraRotate : MonoBehaviour {
 	}
 
 	void LateUpdate () {
+
+		if(manager.light.isFever){
+
+		}else{
+
 		transform.LookAt(camTarget);
 		transform.RotateAround(camTarget.position,Vector3.up, 15f * Time.deltaTime);		
 		transform.position = camTarget.position - (camZoom * camDistance * transform.forward);
+		}
+
 	}
 }
