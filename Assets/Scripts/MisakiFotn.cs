@@ -6,6 +6,7 @@ using TMPro;
 //using System.Threading;
 
 public class MisakiFotn : MonoBehaviour {
+	public Boid boid;
 	public GameObject[] dots;
 	public string initialData;
 	public string editedData;
@@ -77,6 +78,13 @@ public class MisakiFotn : MonoBehaviour {
         //StartCoroutine("misakiAnimation");
     }
 	// Update is called once per frame
+	public void Init(){
+
+		Text0.text=boid.fotnCode;
+		Text1.text=boid.fotnCode;
+		Text2.text=boid.fotnCode;
+		Text3.text=boid.fotnCode;
+	}
 	void Update () {
 
         float goNextFrameTime = Time.realtimeSinceStartup + 0.01f;

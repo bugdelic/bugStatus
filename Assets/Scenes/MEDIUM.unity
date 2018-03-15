@@ -7001,6 +7001,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114680275116748686, guid: 61cc837953ea9c643a66321aa2985670,
+        type: 2}
+      propertyPath: boids.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4679332188995240, guid: 61cc837953ea9c643a66321aa2985670, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7173,6 +7178,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114680275116748686, guid: 61cc837953ea9c643a66321aa2985670,
+        type: 2}
+      propertyPath: flockSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114680275116748686, guid: 61cc837953ea9c643a66321aa2985670,
+        type: 2}
+      propertyPath: activeFotn
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61cc837953ea9c643a66321aa2985670, type: 2}
@@ -12668,12 +12683,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114119558872942400, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
+    - target: {fileID: 114815937947025194, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114119558872942400, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
+    - target: {fileID: 114815937947025194, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -12683,35 +12698,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 114815937947025194, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
+    - target: {fileID: 23968370560138502, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
         type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114815937947025194, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114326282041837352, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114326282041837352, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306372879389738, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306372879389738, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6eddd2d9b182654ab97ac6e00d55d1c, type: 2}

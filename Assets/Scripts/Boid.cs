@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
+    public string fotnCode;
     public LayerMask boidMask;
     public bool isMaybe;
     public Transform targetMaybe;

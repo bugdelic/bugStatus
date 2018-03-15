@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour {
     public LightController light;
+    public int activeFotn=0;
     public bool isMaybe;
     public Transform parent;
     public bool debugOn;
@@ -49,16 +50,7 @@ public class Flock : MonoBehaviour {
 
     void Start() {
         boids.Clear();
-        for (int i = 0; i < flockSize; i++ ){
-            Vector3 randomPos = transform.position + Random.insideUnitSphere * flockSpawnRadius;
-            Boid b = Instantiate(boidPrefab,randomPos,Quaternion.Euler(randomPos - transform.position)).GetComponent<Boid>();
-            b.name = "Boid_" + i;
-            b.Velocity = Random.insideUnitSphere.normalized;
-            b.ParentFlock = this;
-            boids.Add(b);
-            b.transform.parent=parent;
-            
-        }
+        
     }
 
     void Update() {
@@ -70,9 +62,42 @@ public class Flock : MonoBehaviour {
 			b.ExecuteMovement();
 		}
         
+/*
         flockCentroid = flockCentroid / boids.Count;
         transform.position = flockCentroid;
 
         Time.timeScale = slowTimePercent;
+        for (int i = activeFotn; i < flockSize; i++ ){
+            Vector3 randomPos = transform.position + Random.insideUnitSphere * flockSpawnRadius;
+            Boid b = Instantiate(boidPrefab,randomPos,Quaternion.Euler(randomPos - transform.position)).GetComponent<Boid>();
+            b.name = "Boid_" + i;
+            b.Velocity = Random.insideUnitSphere.normalized;
+            b.ParentFlock = this;
+            boids.Add(b);
+            b.transform.parent=parent;
+            activeFotn++;
+            
+        }
+*/
+    }
+    public void createFotn(string TTT){
+        flockSize++;
+
+        Vector3 flockCentroid = Vector3.zero;
+        flockCentroid = flockCentroid / boids.Count;
+        transform.position = flockCentroid;
+
+        Time.timeScale = slowTimePercent;
+
+        Vector3 randomPos = transform.position + Random.insideUnitSphere * flockSpawnRadius;
+        Boid b = Instantiate(boidPrefab,randomPos,Quaternion.Euler(randomPos - transform.position)).GetComponent<Boid>();
+        b.name = "Boid_" + activeFotn;
+        b.fotnCode=TTT;
+        b.Velocity = Random.insideUnitSphere.normalized;
+        b.ParentFlock = this;
+        boids.Add(b);
+        b.transform.parent=parent;
+
+        activeFotn++;
     }
 }

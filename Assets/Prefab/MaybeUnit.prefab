@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  timer: 10000
+  timer: 100
   scannedPosition: {x: 0, y: 0, z: 0}

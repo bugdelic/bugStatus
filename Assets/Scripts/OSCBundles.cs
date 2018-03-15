@@ -335,11 +335,6 @@ namespace OscSimpl.Examples
 			}
             //Vector3 rotation=new Vector3(i * 2.0f, 0, 0);
 
-            MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
-			fotn.manager=manager;
-            //fotn.setTypeFace(message.ToString());
-            //fotn.transform.parent = fotnParent;
-            fotn.transform.parent = flock.boids[0].transform;
 
 			// 文字コード問題の解決(unicode to String)
 			String[] parseMoji = receiveLabel4.text.Split (' ');
@@ -348,13 +343,22 @@ namespace OscSimpl.Examples
 			}
 			string unicodeMoji = ((char)int.Parse(parseMoji [1], NumberStyles.HexNumber)).ToString();
 			Debug.Log( receiveLabel4.text + ": " + unicodeMoji);
+
+			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
+			if (SceneManager.GetActiveScene ().name == "misaki") {
+
+
+            MisakiFotn fotn = (MisakiFotn)Instantiate(fotnBase, position, transform.rotation);
+			fotn.manager=manager;
+            //fotn.setTypeFace(message.ToString());
+            //fotn.transform.parent = fotnParent;
+            fotn.transform.parent = flock.boids[0].transform;
+
 			fotn.Text0.text= unicodeMoji;
 			fotn.Text1.text= unicodeMoji;
 			fotn.Text2.text= unicodeMoji;
 			fotn.Text3.text= unicodeMoji;
-
-			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
-			if (SceneManager.GetActiveScene ().name == "misaki") {
+			
 				BoidsController boidsController = GetComponent<BoidsController> ();
 				if (bossCounter % bossMasterCount == 0) {
 					boidsController.addBoss (fotn.transform.gameObject);
@@ -365,6 +369,8 @@ namespace OscSimpl.Examples
 					fotn.GetComponent<Rigidbody> ().isKinematic = false;
 				}
 				bossCounter++;
+			}else{
+				flock.createFotn(unicodeMoji);
 			}
 		}
 
