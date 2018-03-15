@@ -80,7 +80,7 @@ public class Flock : MonoBehaviour {
         }
 */
     }
-    public void createFotn(string TTT){
+    public GameObject createFotn(string TTT){
         flockSize++;
 
         Vector3 flockCentroid = Vector3.zero;
@@ -99,5 +99,6 @@ public class Flock : MonoBehaviour {
         b.transform.parent=parent;
 
         activeFotn++;
+        return b.gameObject;
     }
 }

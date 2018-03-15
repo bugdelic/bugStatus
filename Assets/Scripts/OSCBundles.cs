@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
 using System;
@@ -22,6 +23,8 @@ namespace OscSimpl.Examples
 {
 	public class OSCBundles : MonoBehaviour
 	{
+		public List<GameObject> coralList = new List<GameObject>();
+
 		public Flock flock;
 		public int loopMakeNumber=100;
 		public Text loopMakeNumberText;
@@ -247,17 +250,16 @@ namespace OscSimpl.Examples
 			foreach (GameObject obj in tagobjs) {
 				Destroy (obj);
 			}
+
+				OscMessage message11 = new OscMessage( address11,UnityEngine.Random.value );
+				oscOut.Send( message11 );
 			for(int i=0;i<corelCount;i++){
 //				Debug.Log("開始");
 				yield return new WaitForSeconds(0.1f);  //10秒待つ
 				OscBundle bundle = new OscBundle();
-				OscMessage message11 = new OscMessage( address11,UnityEngine.Random.value );
-				OscMessage message12 = new OscMessage( address12, UnityEngine.Random.value );
 				OscMessage message13 = new OscMessage( address13, UnityEngine.Random.value*stageScale-stageScale/2 );
 				OscMessage message14 = new OscMessage( address14, UnityEngine.Random.value*stageScale-stageScale/2 );
 				OscMessage message15 = new OscMessage( address15, 111 );
-				bundle.Add( message11 );
-				bundle.Add( message12 );
 				bundle.Add( message13 );
 				bundle.Add( message14 );
 				bundle.Add( message15 );
@@ -266,6 +268,8 @@ namespace OscSimpl.Examples
 				//Debug.Log("HELLO");
 				//Debug.Log("0.1秒経ちました");
 			}
+				OscMessage message12 = new OscMessage( address12, UnityEngine.Random.value );
+				oscOut.Send( message12 );
  
     }
 
@@ -350,6 +354,9 @@ namespace OscSimpl.Examples
 			string unicodeMoji = ((char)int.Parse(parseMoji [1], NumberStyles.HexNumber)).ToString();
 			Debug.Log( receiveLabel4.text + ": " + unicodeMoji);
 
+
+
+
 			// とりあえず特定個数の個体が生成されたらボスを生成(ランダムでもOK)
 			if (SceneManager.GetActiveScene ().name == "misaki") {
 
@@ -376,7 +383,9 @@ namespace OscSimpl.Examples
 				}
 				bossCounter++;
 			}else{
-				flock.createFotn(unicodeMoji);
+				GameObject tmp=flock.createFotn(unicodeMoji);
+				int x=UnityEngine.Random.Range(0, coralList.Count);
+				tmp.transform.position=coralList[x].transform.position;
 			}
 		}
 
@@ -413,6 +422,10 @@ namespace OscSimpl.Examples
 		{// Update UI.
 			receiveLabel11.text = message.ToString();
             //localCount=0;
+
+
+			coralList.Clear(); //Listすべての要素を削除
+
 		}
 
 		void OnMessage12Received( OscMessage message )
@@ -453,6 +466,8 @@ namespace OscSimpl.Examples
 			corel.manager=manager;
 			corel.osc=this;
 
+
+			coralList.Add(corel.gameObject);    //GameObject型 newObj1をmyListに加える
             //position=new Vector3((localCount-2) * 10.0f*(-1.0f), 0, 0);
             //cameraTarget.position=position;
 
