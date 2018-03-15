@@ -149,6 +149,9 @@ public class MisakiFotn : MonoBehaviour {
 		
 	}
 
+	public void hybridBorn(string param){
+
+	}
     //「コルーチン」で呼び出すメソッド
     IEnumerator initLayout(){
 

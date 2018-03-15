@@ -40,10 +40,17 @@ public class CorelUnit : MonoBehaviour {
         if(other.gameObject.tag == "Fotn")
         {
 			
-	//	Debug.Log("HELLO");
-        Boid b = other.transform.GetComponent<Boid>();
-		
-			osc.fotnTalker(b.fotnCode);
+				int x=UnityEngine.Random.Range(0, 10);
+				if(x==0){
+					osc.fotnHybrid("0");
+				}else{
+					//	Debug.Log("HELLO");
+     		 	 	 Boid b = other.transform.GetComponent<Boid>();
+					osc.fotnTalker(b.fotnCode);
+				}
+
+
+
         }
     }
 }

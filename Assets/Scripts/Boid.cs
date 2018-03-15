@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
+    public int stage;
     public string fotnCode;
     public LayerMask boidMask;
     public bool isMaybe;
     public Transform targetMaybe;
+    public MisakiFotn fotn;
 
     Flock parentFlock;
     public Flock ParentFlock { get { return parentFlock; } set { parentFlock = value; } }
@@ -31,6 +33,9 @@ public class Boid : MonoBehaviour
     [SerializeField]
     List<Collider> neighbourList;
 
+    public void makeHybrid(string url){
+        fotn.hybridBorn(url);
+    }
     //Run through the applicable behaviours and return the final movement vector
     public void UpdateBehaviour() { 
 

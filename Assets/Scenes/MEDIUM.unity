@@ -1518,6 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65188a8a9a0394b768f402e4ed73a6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coralList: []
   flock: {fileID: 2122133373}
   loopMakeNumber: 100
   loopMakeNumberText: {fileID: 1617761080}
@@ -1582,6 +1583,7 @@ MonoBehaviour:
   address23: /maybe/x
   address24: /maybe/y
   address25: /maybe/charactor
+  address31: /hybrid
   bossMasterCount: 10
   manager: {fileID: 151827692}
   bossCounter: 0
@@ -4959,6 +4961,12 @@ Transform:
   m_Father: {fileID: 1492877677}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565225200 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114918896887874144, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1730375719}
+  m_Script: {fileID: 11500000, guid: b32bbaf5510a795429df0c89a6370713, type: 3}
 --- !u!1 &588944081
 GameObject:
   m_ObjectHideFlags: 0
@@ -12698,6 +12706,11 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114705511910121174, guid: e6eddd2d9b182654ab97ac6e00d55d1c,
+        type: 2}
+      propertyPath: boid
+      value: 
+      objectReference: {fileID: 565225200}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6eddd2d9b182654ab97ac6e00d55d1c, type: 2}
   m_IsPrefabParent: 0

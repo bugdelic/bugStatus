@@ -108,6 +108,7 @@ namespace OscSimpl.Examples
 		public string address24 = "/maybe/y";
 		public string address25 = "/maybe/option";
 
+		public string address31 = "/hybrid";
 
 		public int bossMasterCount = 10;
 		public FotnGameManager manager;
@@ -147,6 +148,8 @@ namespace OscSimpl.Examples
 			oscIn.Map( address23, OnMessage23Received );
 			oscIn.Map( address24, OnMessage24Received );
 			oscIn.Map( address25, OnMessage25Received );
+
+			oscIn.Map( address31, OnMessage31Received );
 
 			// Show UI.
 			uiWrapper.SetActive( true );
@@ -225,9 +228,15 @@ namespace OscSimpl.Examples
   //tring text = System.Text.Encoding.Unicode.GetString(resultBytes);
 			Debug.Log("HELLO "+encodedText);
 		} 
+		public void fotnHybrid(string TTT){
+
+			Debug.Log("fotnHybrid");
+			OscMessage talker = new OscMessage( "/unison", 0,"0x1121","0x2222" );
+			oscOut.Send( talker );
+		}
 		public void fotnTalker(string TTT){
 
-		Debug.Log("fotnTalker");
+			Debug.Log("fotnTalker");
 			OscMessage talker = new OscMessage( "/talk", TTT );
 			oscOut.Send( talker );
 		}
@@ -518,6 +527,18 @@ namespace OscSimpl.Examples
             //cameraTarget.position=position;
 
 			//scopeTarget.target=fotn.transform;
+
+		}
+
+		void OnMessage31Received( OscMessage message )
+		{// Update UI
+
+				int x=UnityEngine.Random.Range(0, coralList.Count);
+				string url="test";
+				GameObject tmp=flock.createFotn("0x9999");
+				Boid b=tmp.GetComponent<Boid> ();
+				b.makeHybrid(url);
+				tmp.transform.position=coralList[x].transform.position;
 
 		}
 		public void setLoopValue(){
